@@ -1,0 +1,1 @@
+Esta es la informacion de un archivo txt devuelto por el servidor
