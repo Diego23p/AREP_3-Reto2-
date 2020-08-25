@@ -19,9 +19,9 @@ import edu.escuelaing.arep.Model.Animal;
 public class DbConexionImpl implements DbConexion{
 
 	
-	private  String user = "cqjlfavmdzcgdc";
-    private  String passw = "a67e5b3c4fe39d9c69649ba1528c20f68b5d989e7ebdbfaf2cf6c81c578dddca";
-    private  String url = "jdbc:postgresql://ec2-107-22-33-173.compute-1.amazonaws.com:5432/dchihbp528vraq?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	private  String user = "mmhnuqtekqreau";
+    private  String passw = "507e02d7be4f200071fe4ff923e9f5769be1a5b9514f9f26229c8e11e738ac81";
+    private  String url = "jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d6n045gsciacmh?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
     private  Connection connection;
     
     public DbConexionImpl() throws SQLException {
