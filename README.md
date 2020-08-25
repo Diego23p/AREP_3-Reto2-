@@ -1,4 +1,4 @@
-# Laboratorio 3 (Reto 1) - Servidor web sin frameworks (Función Lambda y DB)
+# Laboratorio 3 (Reto 2) - Servidor web sin frameworks (Función Lambda y DB)
 
 Servidor web que soporta múltiples solicutudes, retorna archivos solicitados en el path construido únicamente con Java y librerias de red (Sin frameworks como Spark o Spring).
 Posee una función Lambda para el llamado de las múltuples peticiones además de la conexión a una base de datos.
