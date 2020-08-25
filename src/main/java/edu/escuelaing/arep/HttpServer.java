@@ -27,7 +27,12 @@ public class HttpServer {
 	
 	static String requi = null; 
 	
-	
+	/**
+     * Metodo principal para ejecutar el servidor web 
+     *
+     * @param args funcionamiento estandar del metodo main 
+     * @throws IOException Excepcion al ejecutar streams
+     */
   public static void main(String[] args) throws IOException  {
 	  
 	   serverSocket = null;
@@ -62,12 +67,13 @@ public class HttpServer {
 		clientSocket.close(); 
 	   }
   }
-  
-  private static void Get(Object object) {
-	  
-	
-}
 
+  /**
+   * Retorna el path del recurso que fue solicitado
+   *
+   * @throws IOException Excepcion al ejecutar streams
+   * @return la ruta especifica del archivo solicitado
+   */
 public static String gett() throws IOException{
 	   
 		   
@@ -109,8 +115,8 @@ public static String gett() throws IOException{
   /**
      * Retorna el recurso solicitado en el path 
      *
-     * @param req archivo solicitado
-     * @throws IOException
+     * @param req archivo solicitado puesto ya como String
+     * @throws IOException Excepcion al ejecutar streams
      */
   public static void returnRequest(String req) throws IOException {
 	  
@@ -197,6 +203,10 @@ public static String gett() throws IOException{
       }
   }
   
+  /**
+   * Retorna el puerto escaneado en el ambiente o el de defecto de Heroku
+   *
+   */
   static int getPort() {
       if (System.getenv("PORT") != null) {
           return Integer.parseInt(System.getenv("PORT"));

@@ -21,7 +21,7 @@ public class Animal {
 	
 	/**
 	 * Asigna un numero a la variable Id
-	 * @param Id
+	 * @param id numero a cambiar
 	 */
 	public void setId(int id) {
 		Id = id;
@@ -37,7 +37,7 @@ public class Animal {
 	
 	/**
 	 * Asigna una clasificacion a la variable Animal
-	 * @param animal
+	 * @param animal nombre del animal a devolver
 	 */
 	public void setAnimal(String animal) {
 		Animal = animal;
@@ -53,7 +53,7 @@ public class Animal {
 	
 	/**
 	 * Asigna un nombre a la variable nombre
-	 * @param nombre
+	 * @param nombre nombre especifico del animal
 	 */
 	public void setNombre(String nombre) {
 		Nombre = nombre;

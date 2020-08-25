@@ -1,6 +1,7 @@
-# Laboratorio 3 (Reto 1) - Servidor web sin frameworks
+# Laboratorio 3 (Reto 1) - Servidor web sin frameworks (Función Lambda y DB)
 
 Servidor web que soporta múltiples solicutudes, retorna archivos solicitados en el path construido únicamente con Java y librerias de red (Sin frameworks como Spark o Spring).
+Posee una función Lambda para el llamado de las múltuples peticiones además de la conexión a una base de datos.
 
 ## Inicialización
 
@@ -55,7 +56,7 @@ heroku/7.39.0 win32-x64 node-v12.13.0
 
 Para descargar localmente el repositorio se utiliza el comando como sigue:
 ```
-> git clone https://github.com/Diego23p/AREP_3-Reto1-.git
+> git clone https://github.com/Diego23p/AREP_3-Reto2-.git
 ```
 
 Para compilar el proyecto usando Maven:
@@ -85,6 +86,8 @@ Luego de ejecutar el servicio por medio del buscador, se pueden solicitar recurs
 
 * ```/Perro.jpg```
 
+* ```/Tabla.jpg``` (Llamado a la base de datos)
+
 ### Generar JavaDoc
 
 ```
@@ -95,11 +98,11 @@ mvn javadoc:javadoc
 
 La aplicación desplegada en la nube se encuentra en: 
 
-[![Heroku](https://camo.githubusercontent.com/be46aee4f8d55e322c3e7db60ea23a4deb5427c9/68747470733a2f2f6865726f6b752d62616467652e6865726f6b756170702e636f6d2f3f6170703d6865726f6b752d6261646765)](https://thawing-everglades-60554.herokuapp.com/index.html)
+[![Heroku](https://camo.githubusercontent.com/be46aee4f8d55e322c3e7db60ea23a4deb5427c9/68747470733a2f2f6865726f6b752d62616467652e6865726f6b756170702e636f6d2f3f6170703d6865726f6b752d6261646765)](https://mighty-dusk-38640.herokuapp.com/index.html)
 
 # Descripción del Diseño
 
-[disenoLab3.pdf](disenoLab3.pdf)
+[disenoLab3Part2.pdf](disenoLab3Part2.pdf)
 
 # Autores
 
