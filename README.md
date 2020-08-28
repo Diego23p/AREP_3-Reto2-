@@ -72,7 +72,7 @@ Para ejecutar el programa localmente haciendo uso de Heroku, se necesita desde l
 
 > heroku local web
 ```
-Luego de ejecutar el servicio por medio del buscador, se pueden solicitar recursos por medio del buscador, agregando al path las siguientes opciones:
+Luego de ejecutar el servicio por medio del buscador, se pueden solicitar recursos por medio del mismo, agregando al path las siguientes opciones:
 
 * ```/funcionJavaScrip.js```
 
