@@ -86,7 +86,7 @@ Luego de ejecutar el servicio por medio del buscador, se pueden solicitar recurs
 
 * ```/Perro.jpg```
 
-* ```/Tabla.jpg``` (Llamado a la base de datos)
+* ```/Tabla.html``` (Llamado a la base de datos)
 
 ### Generar JavaDoc
 
