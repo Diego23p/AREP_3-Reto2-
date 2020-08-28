@@ -88,6 +88,10 @@ Luego de ejecutar el servicio por medio del buscador, se pueden solicitar recurs
 
 * ```/Tabla.html``` (Llamado a la base de datos)
 
+Para Acceder al resurso Lambda escriba:
+
+* ```/ValorLambda?<Valor que desee>```
+
 ### Generar JavaDoc
 
 ```
