@@ -2,12 +2,7 @@ package edu.escuelaing.arep;
 
 import org.apache.commons.io.FilenameUtils;
 
-import edu.escuelaing.arep.Connection.Impl.DbConexionImpl;
-import edu.escuelaing.arep.Model.Animal;
-
 import java.net.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
@@ -23,17 +18,9 @@ public class HttpServer {
 	
 	static PrintWriter out;
 	static BufferedReader in;
-	static DbConexionImpl conexion;
 	
-	static String requi = null; 
 	
-	/**
-     * Metodo principal para ejecutar el servidor web 
-     *
-     * @param args funcionamiento estandar del metodo main 
-     * @throws IOException Excepcion al ejecutar streams
-     */
-  public static void main(String[] args) throws IOException  {
+  public static void main(String[] args) throws IOException {
 	  
 	   serverSocket = null;
 	   try { 
@@ -42,40 +29,7 @@ public class HttpServer {
 	      System.err.println("No es posible escuchar el puerto: 36000.");
 	      System.exit(1);
 	   }
-	   
-	   try {
-		   conexion = new DbConexionImpl();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	   
 	   while(true) {
-		   Get entrada = (value) ->  {
-			try {
-				returnRequest(value);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		};
-		entrada.get(gett());		   
-		   
-		out.close();
-		in.close();
-		clientSocket.close(); 
-	   }
-  }
-
-  /**
-   * Retorna el path del recurso que fue solicitado
-   *
-   * @throws IOException Excepcion al ejecutar streams
-   * @return la ruta especifica del archivo solicitado
-   */
-public static String gett() throws IOException{
-	   
 		   
 		   try {
 		       System.out.println("Listo para recibir ...");
@@ -102,21 +56,24 @@ public static String gett() throws IOException{
 	              if (matcher.find()) {
 	                  String req = matcher.group().substring(5);
 	                  System.out.println("VALUE: " + req);
-	                  requi=req;
+	                  returnRequest(req);
 	              }
-		    	  break;
+		    	  break; 
 		      }
 		   }
-		   return requi;
+		  
+		    out.close(); 
+		    in.close(); 
+		    clientSocket.close(); 
 		    //serverSocket.close();
-	   
+	   }
   }
   
   /**
      * Retorna el recurso solicitado en el path 
      *
-     * @param req archivo solicitado puesto ya como String
-     * @throws IOException Excepcion al ejecutar streams
+     * @param req archivo solicitado
+     * @throws IOException
      */
   public static void returnRequest(String req) throws IOException {
 	  
@@ -131,43 +88,7 @@ public static String gett() throws IOException{
       System.out.println("Ruta del recurso: "+path+req);
       File file = new File(path+req);
       
-      if (req.equals("Tabla.html")) {
-    	  out.println("HTTP/1.1 200 \r\nContent-Type: text/html\r\n\r\n");
-    	  
-    	  String outputLine = 
-    	          "<!DOCTYPE html>" + 
-    	          "<html>" + 
-    	          "<head>" + 
-    	          "<meta charset=\"UTF-8\">" + 
-    	          "<title>Base de Datos</title>\n" + 
-    	          "</head>" + 
-    	          "<body>" + 
-    	          "<h1>Tabla Animales</h1>" + 
-    	          "<table border=\"1\">"+
-    	          "<tr>"+
-    	          "<td>Id</td>"+
-    	          "<td>Animal</td>"+
-    	          "<td>Nombre</td>"+
-    	          "</tr>";
-    	     
-    	          ArrayList<Animal> lista = conexion.getEstudiantes();
-    	          for (int i=0;i<lista.size();i++)
-    	          {
-    	             outputLine=outputLine +"<tr>"+
-	    	            		 				"<td>"+lista.get(i).getId()+"</td>"+
-	    	            		 				"<td>"+lista.get(i).getAnimal()+"</td>"+
-							    	            "<td>"+lista.get(i).getNombre()+"</td>"+
-						    	            "</tr>";
-    	          }
-    	          
-    	          outputLine=outputLine +"</table>"+
-    	          "</body>" + 
-    	          "</html>"; 
-    	    out.println(outputLine);
-      }
-      
-      else if (file.exists() && !file.isDirectory()) {
-    	  
+      if (file.exists() && !file.isDirectory()) {
 	      if (ext.equals("jpg") || ext.equals("png")) {
 	    	  	
 				FileInputStream fis = new FileInputStream(file);
@@ -203,10 +124,6 @@ public static String gett() throws IOException{
       }
   }
   
-  /**
-   * Retorna el puerto escaneado en el ambiente o el de defecto de Heroku
-   *
-   */
   static int getPort() {
       if (System.getenv("PORT") != null) {
           return Integer.parseInt(System.getenv("PORT"));
