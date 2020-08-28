@@ -99,6 +99,7 @@ public class HttpServer {
       } else {
     	  System.out.println("Ruta del recurso: "+path+req);
       }
+      
       File file = new File(path+req);
 
 	  if (req.equals("Tabla.html")) {
