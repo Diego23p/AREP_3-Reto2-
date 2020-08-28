@@ -25,8 +25,15 @@ public class HttpServer {
 	static BufferedReader in;
 	static DbConexionImpl conexion;
 	
+	static String requi = null; 
 	
-  public static void main(String[] args) throws IOException, SQLException {
+	/**
+     * Metodo principal para ejecutar el servidor web 
+     *
+     * @param args funcionamiento estandar del metodo main 
+     * @throws IOException Excepcion al ejecutar streams
+     */
+  public static void main(String[] args) throws IOException  {
 	  
 	   serverSocket = null;
 	   try { 
@@ -36,9 +43,39 @@ public class HttpServer {
 	      System.exit(1);
 	   }
 	   
-	   conexion = new DbConexionImpl();
+	   try {
+		   conexion = new DbConexionImpl();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   
 	   while(true) {
+		   Get entrada = (value) ->  {
+			try {
+				returnRequest(value);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		};
+		entrada.get(gett());		   
+		   
+		out.close();
+		in.close();
+		clientSocket.close(); 
+	   }
+  }
+
+  /**
+   * Retorna el path del recurso que fue solicitado
+   *
+   * @throws IOException Excepcion al ejecutar streams
+   * @return la ruta especifica del archivo solicitado
+   */
+public static String gett() throws IOException{
+	   
 		   
 		   try {
 		       System.out.println("Listo para recibir ...");
@@ -65,24 +102,21 @@ public class HttpServer {
 	              if (matcher.find()) {
 	                  String req = matcher.group().substring(5);
 	                  System.out.println("VALUE: " + req);
-	                  returnRequest(req);
+	                  requi=req;
 	              }
-		    	  break; 
+		    	  break;
 		      }
 		   }
-		  
-		    out.close(); 
-		    in.close(); 
-		    clientSocket.close(); 
+		   return requi;
 		    //serverSocket.close();
-	   }
+	   
   }
   
   /**
      * Retorna el recurso solicitado en el path 
      *
-     * @param req archivo solicitado
-     * @throws IOException
+     * @param req archivo solicitado puesto ya como String
+     * @throws IOException Excepcion al ejecutar streams
      */
   public static void returnRequest(String req) throws IOException {
 	  
@@ -94,15 +128,11 @@ public class HttpServer {
     	  path+="img/";
       }
       
-      if (req.equals("Tabla.html")) {
-    	  System.out.println("Ruta del recurso: Recurso no estatico, llamado a base de datos");
-      } else {
-    	  System.out.println("Ruta del recurso: "+path+req);
-      }
+      System.out.println("Ruta del recurso: "+path+req);
       File file = new File(path+req);
-
-	  if (req.equals("Tabla.html")) {
-		  out.println("HTTP/1.1 200 \r\nContent-Type: text/html\r\n\r\n");
+      
+      if (req.equals("Tabla.html")) {
+    	  out.println("HTTP/1.1 200 \r\nContent-Type: text/html\r\n\r\n");
     	  
     	  String outputLine = 
     	          "<!DOCTYPE html>" + 
@@ -134,7 +164,10 @@ public class HttpServer {
     	          "</body>" + 
     	          "</html>"; 
     	    out.println(outputLine);
-      } else if (file.exists() && !file.isDirectory()) {
+      }
+      
+      else if (file.exists() && !file.isDirectory()) {
+    	  
 	      if (ext.equals("jpg") || ext.equals("png")) {
 	    	  	
 				FileInputStream fis = new FileInputStream(file);
@@ -170,6 +203,10 @@ public class HttpServer {
       }
   }
   
+  /**
+   * Retorna el puerto escaneado en el ambiente o el de defecto de Heroku
+   *
+   */
   static int getPort() {
       if (System.getenv("PORT") != null) {
           return Integer.parseInt(System.getenv("PORT"));

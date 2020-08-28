@@ -2,12 +2,7 @@ package edu.escuelaing.arep;
 
 import org.apache.commons.io.FilenameUtils;
 
-import edu.escuelaing.arep.Connection.Impl.DbConexionImpl;
-import edu.escuelaing.arep.Model.Animal;
-
 import java.net.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
@@ -16,17 +11,16 @@ import java.io.*;
  * 
  * @author Diego Puerto
  */
-public class HttpServer {
+public class HttpServerr {
 	
 	static ServerSocket serverSocket = null;
 	static Socket clientSocket = null;
 	
 	static PrintWriter out;
 	static BufferedReader in;
-	static DbConexionImpl conexion;
 	
 	
-  public static void main(String[] args) throws IOException, SQLException {
+  public static void main(String[] args) throws IOException {
 	  
 	   serverSocket = null;
 	   try { 
@@ -35,9 +29,6 @@ public class HttpServer {
 	      System.err.println("No es posible escuchar el puerto: 36000.");
 	      System.exit(1);
 	   }
-	   
-	   conexion = new DbConexionImpl();
-	   
 	   while(true) {
 		   
 		   try {
@@ -94,47 +85,10 @@ public class HttpServer {
     	  path+="img/";
       }
       
-      if (req.equals("Tabla.html")) {
-    	  System.out.println("Ruta del recurso: Recurso no estatico, llamado a base de datos");
-      } else {
-    	  System.out.println("Ruta del recurso: "+path+req);
-      }
+      System.out.println("Ruta del recurso: "+path+req);
       File file = new File(path+req);
-
-	  if (req.equals("Tabla.html")) {
-		  out.println("HTTP/1.1 200 \r\nContent-Type: text/html\r\n\r\n");
-    	  
-    	  String outputLine = 
-    	          "<!DOCTYPE html>" + 
-    	          "<html>" + 
-    	          "<head>" + 
-    	          "<meta charset=\"UTF-8\">" + 
-    	          "<title>Base de Datos</title>\n" + 
-    	          "</head>" + 
-    	          "<body>" + 
-    	          "<h1>Tabla Animales</h1>" + 
-    	          "<table border=\"1\">"+
-    	          "<tr>"+
-    	          "<td>Id</td>"+
-    	          "<td>Animal</td>"+
-    	          "<td>Nombre</td>"+
-    	          "</tr>";
-    	     
-    	          ArrayList<Animal> lista = conexion.getEstudiantes();
-    	          for (int i=0;i<lista.size();i++)
-    	          {
-    	             outputLine=outputLine +"<tr>"+
-	    	            		 				"<td>"+lista.get(i).getId()+"</td>"+
-	    	            		 				"<td>"+lista.get(i).getAnimal()+"</td>"+
-							    	            "<td>"+lista.get(i).getNombre()+"</td>"+
-						    	            "</tr>";
-    	          }
-    	          
-    	          outputLine=outputLine +"</table>"+
-    	          "</body>" + 
-    	          "</html>"; 
-    	    out.println(outputLine);
-      } else if (file.exists() && !file.isDirectory()) {
+      
+      if (file.exists() && !file.isDirectory()) {
 	      if (ext.equals("jpg") || ext.equals("png")) {
 	    	  	
 				FileInputStream fis = new FileInputStream(file);
